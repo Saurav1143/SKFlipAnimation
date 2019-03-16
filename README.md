@@ -4,6 +4,7 @@
 # Usage
 ```
 @IBOutlet weak var rotatedView: SKCoinFlipAnimation!
+
 override func viewDidLoad() {
         super.viewDidLoad()
         rotatedView.firstImage = UIImage(named: "SKImage")!

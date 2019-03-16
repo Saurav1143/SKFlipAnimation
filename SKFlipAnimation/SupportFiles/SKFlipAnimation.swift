@@ -8,11 +8,19 @@
 
 import UIKit
 
+enum AnimationType:String {
+    case fromLeft
+    case fromRight
+    case fromBottom
+    case fromTop
+}
+
 class SKCoinFlipAnimation: UIView {
     
     //MARK:- Variables.....
-    var firstImage = UIImage()
-    var secondImage = UIImage()
+    public var firstImage = UIImage()
+    public var secondImage = UIImage()
+    public var animationType:AnimationType = .fromLeft
     private var timer = Timer()
     private var switchImage:Bool = true
     private var skImageView:UIImageView = UIImageView()
@@ -54,17 +62,18 @@ class SKCoinFlipAnimation: UIView {
     }
     
     
-    func scheduledTimerWithTimeInterval(){
+   private func scheduledTimerWithTimeInterval(){
         // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
         timer = Timer.scheduledTimer(timeInterval: TimeInterval(duration), target: self, selector: #selector(flipView), userInfo: nil, repeats: true)
     }
     
+    //For Animation.....
     @objc func flipView() {
         let coinFlip = CATransition()
         coinFlip.startProgress = 0
         coinFlip.endProgress = 1.0
         coinFlip.type = CATransitionType(rawValue: "flip")
-        coinFlip.subtype = CATransitionSubtype(rawValue: "fromLeft")
+        coinFlip.subtype = CATransitionSubtype(rawValue:animationType.rawValue)
         coinFlip.duration = CFTimeInterval(duration)
         coinFlip.repeatCount = 2
         self.layer.add(coinFlip, forKey: "transition")
@@ -75,7 +84,7 @@ class SKCoinFlipAnimation: UIView {
     }
     
     //This Function will change the image during rotation...
-    func changeImage() {
+   private func changeImage() {
         if (switchImage) {
             skImageView.image = secondImage
             switchImage  = !switchImage

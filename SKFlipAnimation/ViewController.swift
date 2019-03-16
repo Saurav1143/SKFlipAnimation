@@ -17,6 +17,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         rotatedView.firstImage = UIImage(named: "SKImage")!
         rotatedView.secondImage = UIImage(named: "SKImage")!
+        rotatedView.animationType = .fromLeft
         // Do any additional setup after loading the view, typically from a nib.
     }
 
